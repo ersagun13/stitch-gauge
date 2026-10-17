@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f2e9" />
+    <title>Stitch Gauge — crochet calculator</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="page-heading">
+        <p class="eyebrow">Crochet · measurements</p>
+        <h1>Stitch Gauge</h1>
+        <p class="intro-copy">Turn a measured swatch into stitch and row counts for your next project.</p>
+      </header>
+
+      <section class="calculator" aria-labelledby="calculator-title">
+        <div class="calculator-heading">
+          <div>
+            <p class="eyebrow">A small planning tool</p>
+            <h2 id="calculator-title">Start with your swatch</h2>
+          </div>
+          <span class="unit-note">All measurements in cm</span>
+        </div>
+
+        <form id="gauge-form" novalidate>
+          <fieldset>
+            <legend>Your swatch</legend>
+            <p class="section-note">Count stitches across the width and rows down the height.</p>
+            <div class="input-grid">
+              <div class="field">
+                <label for="swatch-stitches">Stitches counted</label>
+                <div class="input-with-unit">
+                  <input id="swatch-stitches" name="swatchStitches" type="number" min="1" step="1" inputmode="numeric" aria-describedby="swatch-stitches-error" />
+                  <span>stitches</span>
+                </div>
+                <small class="field-error" id="swatch-stitches-error" aria-live="polite"></small>
+              </div>
+              <div class="field">
+                <label for="swatch-rows">Rows counted</label>
+                <div class="input-with-unit">
+                  <input id="swatch-rows" name="swatchRows" type="number" min="1" step="1" inputmode="numeric" aria-describedby="swatch-rows-error" />
+                  <span>rows</span>
+                </div>
+                <small class="field-error" id="swatch-rows-error" aria-live="polite"></small>
+              </div>
+              <div class="field">
+                <label for="swatch-width">Swatch width</label>
+                <div class="input-with-unit">
+                  <input id="swatch-width" name="swatchWidthCm" type="number" min="0.01" step="any" inputmode="decimal" aria-describedby="swatch-width-error" />
+                  <span>cm</span>
+                </div>
+                <small class="field-error" id="swatch-width-error" aria-live="polite"></small>
+              </div>
+              <div class="field">
+                <label for="swatch-height">Swatch height</label>
+                <div class="input-with-unit">
+                  <input id="swatch-height" name="swatchHeightCm" type="number" min="0.01" step="any" inputmode="decimal" aria-describedby="swatch-height-error" />
+                  <span>cm</span>
+                </div>
+                <small class="field-error" id="swatch-height-error" aria-live="polite"></small>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Finished size</legend>
+            <p class="section-note">How wide and tall should the crocheted piece be?</p>
+            <div class="input-grid input-grid-compact">
+              <div class="field">
+                <label for="target-width">Target width</label>
+                <div class="input-with-unit">
+                  <input id="target-width" name="targetWidthCm" type="number" min="0.01" step="any" inputmode="decimal" aria-describedby="target-width-error" />
+                  <span>cm</span>
+                </div>
+                <small class="field-error" id="target-width-error" aria-live="polite"></small>
+              </div>
+              <div class="field">
+                <label for="target-height">Target height</label>
+                <div class="input-with-unit">
+                  <input id="target-height" name="targetHeightCm" type="number" min="0.01" step="any" inputmode="decimal" aria-describedby="target-height-error" />
+                  <span>cm</span>
+                </div>
+                <small class="field-error" id="target-height-error" aria-live="polite"></small>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="motif-fields">
+            <legend>Motif size <span class="optional-label">optional</span></legend>
+            <p class="section-note">Enter both dimensions to estimate how many repeats will cover the piece.</p>
+            <div class="input-grid input-grid-compact">
+              <div class="field">
+                <label for="motif-width">Motif width</label>
+                <div class="input-with-unit">
+                  <input id="motif-width" name="motifWidthCm" type="number" min="0.01" step="any" inputmode="decimal" aria-describedby="motif-width-error" />
+                  <span>cm</span>
+                </div>
+                <small class="field-error" id="motif-width-error" aria-live="polite"></small>
+              </div>
+              <div class="field">
+                <label for="motif-height">Motif height</label>
+                <div class="input-with-unit">
+                  <input id="motif-height" name="motifHeightCm" type="number" min="0.01" step="any" inputmode="decimal" aria-describedby="motif-height-error" />
+                  <span>cm</span>
+                </div>
+                <small class="field-error" id="motif-height-error" aria-live="polite"></small>
+              </div>
+            </div>
+          </fieldset>
+
+          <button type="submit">Calculate stitch and row counts</button>
+        </form>
+
+        <section id="result-card" class="result-card" aria-labelledby="result-title" hidden>
+          <div class="result-heading">
+            <p class="eyebrow">Your pattern counts</p>
+            <h2 id="result-title">Ready to plan</h2>
+          </div>
+          <p id="result-summary" class="result-summary" role="status" aria-live="polite" aria-atomic="true"></p>
+        </section>
+      </section>
+
+      <footer class="page-footer">
+        <p>Counts round up to meet the requested size. This is a planning estimate; stitch patterns and blocking can change the finished measurements.</p>
+        <p>Calculations stay in this tab. Nothing is saved or sent.</p>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
