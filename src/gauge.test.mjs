@@ -60,6 +60,35 @@ test('rejects a negative target dimension with its field name', () => {
   );
 });
 
+test('rejects zero or negative swatch and target measurements with their field names', () => {
+  const validInput = {
+    swatchStitches: 18,
+    swatchRows: 20,
+    swatchWidthCm: 10,
+    swatchHeightCm: 10,
+    targetWidthCm: 20,
+    targetHeightCm: 20,
+  };
+  const invalidMeasurements = [
+    ['swatchWidthCm', 0],
+    ['swatchWidthCm', -1],
+    ['swatchHeightCm', 0],
+    ['swatchHeightCm', -1],
+    ['targetWidthCm', 0],
+    ['targetWidthCm', -1],
+    ['targetHeightCm', 0],
+    ['targetHeightCm', -1],
+  ];
+
+  for (const [field, value] of invalidMeasurements) {
+    assert.throws(
+      () => calculateGauge({ ...validInput, [field]: value }),
+      (error) => error instanceof GaugeInputError && error.field === field,
+      `${field}=${value} should be rejected`,
+    );
+  }
+});
+
 test('rejects a fractional swatch stitch count', () => {
   assert.throws(
     () => calculateGauge({
